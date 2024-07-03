@@ -1,0 +1,113 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+header {
+    color: black;
+}
+
+.dropdown > button {
+    color: black;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.container {
+    background: white;
+    color: black;
+    width: 26em;
+    margin: 2em auto;
+    padding: 2em;
+    border: var(--asparagus) 3px solid;
+    border-radius: 1em;
+}
+
+.small-container {
+    width: 18em;
+}
+
+.ph {
+    border-bottom: 2px solid black;
+    padding-bottom: 1em;
+}
+
+.ph:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.details-button {
+    background: var(--sage);
+    border-radius: 12px;
+    padding: 0.25em 0.5em;
+}
+
+.details-button:hover {
+    background: var(--asparagus);
+}
+
+.table-striped {
+    margin-top: 1em;
+}
+
+.table-striped th, .table-striped td {
+    padding-right: 1em;
+    text-align: center;
+}
+
+.paint-red {
+    background: red;
+    border: none;
+    font-size: 18px;
+    color: white;
+    padding: 0.25em 0.75em;
+}
+
+.paint-red:hover {
+    background: #a40000;
+}
+
+#add-payment {
+    text-align: right;
+    margin-top: 0.5em;
+}
+
+.payment-method {
+    border-bottom: 2px solid black;
+    margin-bottom: 1em;
+}
+
+.payment-method:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+#add-payment-method-container {
+    background: white;
+    margin: 2em auto;
+    align-self: center;
+    padding: 2em;
+}
+
+#profile_image:hover {
+    cursor: pointer;
+}

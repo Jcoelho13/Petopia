@@ -1,0 +1,136 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+
+.cool_button{
+    background-color: var(--asparagus);
+    color: white;
+    border-style: solid;
+    border-color: var(--asparagus);
+    border-width: 1px;
+    border-radius: 1em;
+    padding: 0.5em;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 1em;
+}
+
+.cool_button:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.white{
+    color: var(--white);
+}
+
+/* First section */
+.first_section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2em;
+    background-color: var(--white);
+    height: 70vh;
+}
+
+.vertical_divider{
+    width: 10px;
+    height: 100%;
+    background-color: var(--asparagus);
+    margin: 0em 2em;
+}
+
+.p_row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.first_section h2{
+    font-size: 4em;
+}
+
+.first_section p{
+    font-size: 2em;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.column h1{
+    font-size: 3em;
+}
+
+/* Second section */
+
+.second_section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2em;
+    background-color: rgba(139, 189, 139, 0.9);
+    height: 70vh;
+}
+
+.second_section img{
+    width: 700px;
+    height: 700px;
+    margin-left: 2em;
+}
+
+.second_section h2{
+    font-size: 4em;
+    color: var(--white);
+}
+
+.second_section p{
+    font-size: 2em;
+    color: var(--white);
+}
+
+.r_col{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.r_col a{
+    color: var(--tomato);
+    text-decoration: none;
+}
+
+.r_col a:hover{
+    color: var(--white);
+}

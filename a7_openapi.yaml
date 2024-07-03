@@ -1,0 +1,751 @@
+openapi: 3.0.0
+
+info:
+  version: "1.0"
+  title: "LBAW Petopia Store Web API"
+  description: "Web Resources Specification (A7) for Petopia Store"
+
+servers:
+  - url: http://lbaw.fe.up.pt
+    description: Production server
+
+externalDocs:
+  description: Find more info here.
+  url: https://git.fe.up.pt/lbaw/lbaw2324/lbaw2396/-/wikis/eap
+
+tags:
+  - name: "M01: Authentication and Personal Data"
+  - name: "M02: Search engine"
+  - name: "M03: Product details"
+  - name: "M04: Checkout and Payment Methods"
+  - name: "M05: Cart, Wishlist and Reviews"
+  - name: "M06: Notifications"
+  - name: "M07: Admin Pages"
+
+paths:
+  /register:
+    get:
+      operationId: R101
+      summary: "R101: Registration Form"
+      description: "Display the new user registration form. Access: PUB"
+      tags:
+        - "M01: Authentication and Personal Data"
+      responses:
+        "200":
+          description: "Ok. Show Registration Form UI"
+
+    post:
+      operationId: R102
+      summary: "R102: Registration Action"
+      description: "Processes the new user registration form submission. Access: PUB"
+      tags:
+        - "M01: Authentication and Personal Data"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "This is the name that is displayed for the other users."
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: "Ok"
+        "302":
+          description: "Redirect after processing the new user information."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful registration. Redirect to home page."
+                  value: "/home_page/{id}"
+                302Failure:
+                  description: "Failed registration. Redirect to registration form."
+                  value: "/register"
+
+  /login:
+    get:
+      operationId: R103
+      summary: "R103: Log-in Form"
+      description: "Provide log-in form. Access: PUB"
+      tags:
+        - "M01: Authentication and Personal Data"
+      responses:
+        "200":
+          description: "Ok. Show log-in UI"
+
+    post:
+      operationId: R104
+      summary: "R104: Log-in Action"
+      description: "Processes the log-in form submission. Access: PUB"
+      tags:
+        - "M01: Authentication and Personal Data"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: "Ok."
+        "302":
+          description: "Redirect after processing the log-in credentials."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful authentication. Redirect to home page."
+                  value: "/home_page/{id}"
+                302Error:
+                  description: "Failed authentication. Redirect to log-in form."
+                  value: "/login"
+
+  /logout:
+    post:
+      operationId: R105
+      summary: "R105: Log-out Action"
+      description: "Log-out the current authenticated user. Access: USR, PBY, ADM"
+      tags:
+        - "M01: Authentication and Personal Data"
+      responses:
+        "200":
+          description: "Ok."
+        "302":
+          description: "Redirect after processing log-out."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful log-out. Redirect to log-in form."
+                  value: "/login"
+
+  /profile/{id}:
+    get:
+      operationId: R106
+      summary: "R106: View GlobalUser Profile"
+      description: "Show the individual user profile. Access: USR, PBY, ADM"
+      tags:
+        - "M01: Authentication and Personal Data"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: "Ok. Show GlobalUser Profile UI"
+
+    put:
+      operationId: R107
+      summary: "R107: Edit GlobalUser Profile"
+      description: "Edit the user's profile. Access: USR, PBY, ADM"
+      tags:
+        - "M01: Authentication and Personal Data"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                name:
+                  type: string
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: "Ok."
+
+  /api/search:
+    get:
+      operationId: R202
+      summary: "R202: Search API"
+      description: "Search for products and return the results as JSON. Access: PUB, USR, PBY, ADM."
+      tags:
+        - "M02: Search engine"
+      parameters:
+        - in: query
+          name: query
+          description: String to use for full-text search and exact match search
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: category
+          description: Category of the products
+          schema:
+            type: string
+        - in: query
+          name: tag
+          description: Product tags
+          schema:
+            type: string
+          required: false
+        - in: query
+          name: price
+          description: Price range
+          schema:
+            type: string
+            format: price-range
+          required: false
+      responses:
+        "200":
+          description: "Ok."
+        "201":
+          description: "Successfully created an array of objects that were found during the search."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    price:
+                      type: number
+                    image:
+                      type: string
+                      format: binary
+                    stock:
+                      type: integer
+                    tags:
+                      type: array
+                      items:
+                        type: string
+              example:
+                - id: 1
+                  name: "Dog dental chews"
+                  description: "Premium dog dental chews for healthier smiles: fresh breath, reduced plaque, and enjoyable chewing. Enhance your dog's oral care today."
+                  image: "http://dummyimage.com/140x100.png/cc0000/ffffff"
+                  price: 20.11
+                  tags: ["Dog"]
+                  stock: 30
+                - id: 2
+                  name: "Reptile habitat"
+                  description: "Optimal reptile habitats in various sizes and styles for different species. Ensure a safe and comfortable home for your scaly pets."
+                  image: "http://dummyimage.com/106x100.png/dddddd/000000"
+                  price: 91.22
+                  tags: ["Reptile"]
+                  stock: 12
+                - id: 7
+                  name: "Hamster exercise toys"
+                  description: "Keep your furry friend active and engaged with our range of wheels, tunnels, and playsets. Happy hamsters guaranteed!"
+                  image: "http://dummyimage.com/192x100.png/ff4444/ffffff"
+                  price: 53.39
+                  tags: ["Hamster", "Small_Animals"]
+                  stock: 68
+
+  /products:
+    get:
+      operationId: R301
+      summary: "R301: List Products"
+      description: "List all products. Access: PUB, USR, PBY, ADM"
+      tags:
+        - "M03: Product details"
+      responses:
+        "200":
+          description: "Ok. Show Products List UI"
+        "404":
+          description: "Not found. No products to show."
+
+  /products/{id}:
+    get:
+      operationId: R302
+      summary: "R302: View Product Details"
+      description: "Show the individual product details. Access: PUB, USR, PBY, ADM"
+      tags:
+        - "M03: Product details"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "Product ID"
+      responses:
+        "200":
+          description: "Ok. Show Product Details UI"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  image:
+                    type: string
+                  description:
+                    type: string
+                  price:
+                    type: number
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                  stock:
+                    type: integer
+                example:
+                  - id: 1
+                    name: "Dog dental chews"
+                    description: "Premium dog dental chews for healthier smiles: fresh breath, reduced plaque, and enjoyable chewing. Enhance your dog's oral care today."
+                    image: "http://dummyimage.com/140x100.png/cc0000/ffffff"
+                    price: 20.11
+                    tags: [ "Dog" ]
+                    stock: 30
+                  - id: 2
+                    name: "Reptile habitat"
+                    description: "Optimal reptile habitats in various sizes and styles for different species. Ensure a safe and comfortable home for your scaly pets."
+                    image: "http://dummyimage.com/106x100.png/dddddd/000000"
+                    price: 91.22
+                    tags: [ "Reptile" ]
+                    stock: 12
+                  - id: 7
+                    name: "Hamster exercise toys"
+                    description: "Keep your furry friend active and engaged with our range of wheels, tunnels, and playsets. Happy hamsters guaranteed!"
+                    image: "http://dummyimage.com/192x100.png/ff4444/ffffff"
+                    price: 53.39
+                    tags: [ "Hamster", "Small_Animals" ]
+                    stock: 68
+        "404":
+            description: "Not found. Product does not exist."
+
+  /checkout/{id}:
+    get:
+      operationId: R401
+      summary: "R401: Checkout"
+      description: "Checkout the cart. Finalize the order."
+      tags:
+        - "M04: Checkout and Payment Methods"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: "Ok. Show Checkout UI"
+
+    post:
+      operationId: R402
+      summary: "R402: Checkout Action"
+      description: "Processes the checkout form submission."
+      tags:
+        - "M04: Checkout and Payment Methods"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                payment_method:
+                  type: string
+                id:
+                  type: integer
+              required:
+                - amount
+                - payment_method
+                - id
+      responses:
+        "200":
+          description: "Ok."
+        "302":
+          description: "Redirect after processing the checkout form submission."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful checkout. Redirect to home page."
+                  value: "/home_page"
+                302Error:
+                  description: "Failed checkout. Redirect to checkout form."
+                  value: "/checkout/{id}"
+
+  /paymentMethods/{id}:
+    get:
+      operationId: R403
+      summary: "R403: Payment Methods"
+      description: "Show the payment methods available."
+      tags:
+        - "M04: Checkout and Payment Methods"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      responses:
+        "200":
+          description: "Ok. Show Payment Methods UI"
+
+    put:
+      operationId: R404
+      summary: "R404: Add Payment Method"
+      description: "Add a new payment method."
+      tags:
+        - "M04: Checkout and Payment Methods"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                card_number:
+                  type: string
+                card_holder:
+                  type: string
+                expiration_date:
+                  type: string
+                cvv:
+                  type: string
+                name:
+                  type: string
+              required:
+                - card_number
+                - card_holder
+                - expiration_date
+                - cvv
+                - name
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                name:
+                  type: string
+              required:
+                - phone_number
+                - name
+      responses:
+        "200":
+          description: "Ok."
+        "302":
+          description: "Redirect after processing the payment method form submission."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful payment method addition. Redirect to payment methods page."
+                  value: "/paymentMethods/{id}"
+                302Error:
+                  description: "Failed payment method addition. Redirect to payment method form."
+                  value: "/paymentMethods/{id}"
+
+  /cart:
+    get:
+      operationId: R501
+      summary: "R501: Display Cart"
+      description: "Display the contents of the shopping cart. Access: USR, PBY"
+      tags:
+        - "M05: Cart, Wishlist and Reviews"
+      responses:
+        "200":
+          description: "Ok. Show Cart UI"
+        "404":
+          description: "Not found. Cart is empty."
+
+  /cart/add/{productId}:
+    get:
+      operationId: R502
+      summary: "R502: Add Product to Cart"
+      description: "Add a product to the shopping cart. Access: USR, PBY"
+      tags:
+        - "M05: Cart, Wishlist and Reviews"
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: integer
+          required: true
+          description: "Product ID to add to the cart"
+      responses:
+        "200":
+          description: "Ok. Product added to the cart."
+        "404":
+          description: "Not found. Product not added to the cart."
+
+  /cart/remove/{productId}:
+    get:
+      operationId: R503
+      summary: "R503: Remove Product from Cart"
+      description: "Remove a product from the shopping cart. Access: USR, PBY"
+      tags:
+        - "M05: Cart, Wishlist and Reviews"
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: integer
+          required: true
+          description: "Product ID to remove from the cart"
+      responses:
+        "200":
+          description: "Ok. Product removed from the cart."
+        "404":
+          description: "Not found. Product not removed from the cart."
+
+  /cart/remove-all:
+    get:
+      operationId: R504
+      summary: "R504: Remove All Products from Cart"
+      description: "Remove all products from the shopping cart. Access: USR, PBY"
+      tags:
+        - "M05: Cart, Wishlist and Reviews"
+      responses:
+        "200":
+          description: "Ok. All products removed from the cart."
+        "404":
+          description: "Not found. Cart is already empty."
+
+  /admin/users:
+    get:
+      operationId: R701
+      summary: "R701: List Users"
+      description: "List all users. Access: ADM"
+      tags:
+        - "M07: Admin Pages"
+      parameters:
+        - in: query
+          name: search
+          description: String to use for full-text search and exact match search
+          schema:
+            type: string
+            required: false
+        - in: query
+          name: sort
+          description: Sort the results by a given field
+          schema:
+            type: string
+            required: false
+        - in: query
+          name: order
+          description: Order the results by ascending or descending order
+          schema:
+              type: string
+              required: false
+        - in: query
+          name: limit
+          description: "Limit the number of users per page."
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+            required: false
+      responses:
+        "200":
+          description: "Ok. Show Users List UI"
+        "404":
+          description: "Not found. No users to show."
+
+  /admin/users/{id}:
+    get:
+      operationId: R702
+      summary: "R702: View GlobalUser Details"
+      description: "Show the individual user details. Access: ADM"
+      tags:
+        - "M07: Admin Pages"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "GlobalUser ID"
+      responses:
+        "200":
+          description: "Ok. Show GlobalUser Details UI"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  profile_image:
+                    type: string
+                example:
+                  - id: 1
+                    name: "John Doe"
+                    email: "johndoe@gmail.com"
+                    profile_image: "http://dummyimage.com/140x100.png/cc0000/ffffff"
+        "404":
+            description: "Not found. GlobalUser does not exist."
+
+  /admin/create:
+    get:
+      operationId: R703
+      summary: "R703: Create GlobalUser Form"
+      description: "Display the new user creation form. Access: ADM"
+      tags:
+        - "M07: Admin Pages"
+      responses:
+        "200":
+          description: "Ok. Show GlobalUser Creation Form UI"
+    post:
+      operationId: R704
+      summary: "R704: Admin GlobalUser Creation Action"
+      description: "Processes the new user creation form submission. Access: ADM"
+      tags:
+        - "M07: Admin Pages"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "This is the name that is displayed for the other users."
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: "Ok"
+        "302":
+          description: "Redirect after processing the new user information."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful registration. Redirect to admin users management page."
+                  value: "/admin/users"
+                302Failure:
+                  description: "Failed registration. Redirect to admin users registration form."
+                  value: "/admin/users/create"
+
+  /admin/users/{id}/edit:
+    get:
+      operationId: R705
+      summary: "R705: Edit GlobalUser Form"
+      description: "Display the user edit form. Access: ADM"
+      tags:
+        - "M07: Admin Pages"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "GlobalUser ID"
+      responses:
+        "200":
+          description: "Ok. Show GlobalUser Edit Form UI"
+    post:
+      operationId: R706
+      summary: "R706: Admin GlobalUser Edit Action"
+      description: "Processes the user edit form submission. Access: ADM"
+      tags:
+        - "M07: Admin Pages"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: "GlobalUser ID"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: "This is the name that is displayed for the other users."
+                email:
+                  type: string
+      responses:
+        "200":
+          description: "Ok"
+        "302":
+          description: "Redirect after processing the user information."
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: "Successful edit. Redirect to admin users management page."
+                  value: "/admin/users"
+                302Failure:
+                  description: "Failed edit. Redirect to admin users edit form."
+                  value: "/admin/users/{id}/edit"
+
+    # Define the paths and operations for other features (M03, M04, M05, M06) as needed.

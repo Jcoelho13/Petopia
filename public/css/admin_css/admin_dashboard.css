@@ -1,0 +1,51 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    margin-bottom: 3em;
+    padding: 1em;
+    flex: 1;
+}
+
+.cool_button{
+    background-color: var(--asparagus);
+    color: white;
+    border-style: solid;
+    border-color: var(--asparagus);
+    border-width: 1px;
+    border-radius: 0.5em;
+    text-decoration: none;
+	padding: 0em 1em;
+}
+
+.cool_button:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+}
+
+p{
+	padding: 0.5em;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.p_container{
+	width: max-content;
+}

@@ -1,0 +1,123 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    margin-bottom: 3em;
+    padding: 1em;
+    flex: 1;
+}
+
+.cool_button{
+    background-color: var(--asparagus);
+    color: white;
+    border-style: solid;
+    border-color: var(--asparagus);
+    border-width: 1px;
+    border-radius: 1em;
+    padding: 0.5em;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 1em;
+}
+
+.cool_button:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 0.5em;
+    justify-content: space-between;
+}
+
+.hidden{
+    display: none;
+}
+
+/* Body top */
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.top h1{
+margin: 0em;
+}
+
+/* Form */
+form{
+    max-width: max-content;
+}
+
+form * {
+    margin: 0em 0.3em;
+}
+
+form input{
+    border-radius: 0.5em;
+    border-style: solid;
+    border-color: var(--asparagus);
+    background-color: var(--white);
+    padding: 0.3em;
+    color: black;
+    cursor: pointer;
+}
+
+form button{
+    background-color: var(--asparagus);
+    color: white;
+    border-style: solid;
+    border-color: var(--asparagus);
+    border-width: 1px;
+    border-radius: 0.3em;
+    padding: 0.4em;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 1em;
+}
+
+form button:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+    cursor: pointer;
+}
+
+form p{
+    width: 20em;
+    color: var(--white);
+    background-color: var(--tomato);
+    border-radius: 0.3em;
+    padding: 0.2em;
+    text-align: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .cool_button{
+        text-align: center;
+    }    
+
+    .top{
+        margin-bottom: 2em;
+    }
+}

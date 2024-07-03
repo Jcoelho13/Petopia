@@ -1,0 +1,126 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    flex: 1;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#cart-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 920px;
+    background-color: white;
+    color: black;
+    padding: 1em 2em;
+    margin-top: 1em;
+    margin-bottom: 5.8em;
+    border-radius: 1em;
+    border: var(--asparagus) 3px solid;
+    padding-bottom: 2em;
+}
+
+.h1_cart {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+p {
+    font-size: 24px;
+    margin: 5px 0;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+td {
+    align-items: center;
+    text-align: center;
+}
+
+tr {
+    height: 4em;
+}
+
+.remove_all{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.remove_all a {
+    background-color: var(--asparagus);
+    color: white;
+    border-style: solid;
+    border-color: var(--asparagus);
+    border-width: 1px;
+    border-radius: 1em;
+    padding: 0.5em;
+    font-weight: 600;
+}
+
+.remove_all a:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+}
+
+#cart-container img {
+    height: 75px;
+    width: auto;
+}
+
+td img {
+    vertical-align: middle;
+}
+
+.button-green,
+.button-success {
+    font-size: 20px;
+    background-color: var(--asparagus);
+    border-bottom: 8px solid var(--asparagus);
+    border-left: 18px solid var(--asparagus);
+    border-right: 18px solid var(--asparagus);
+    border-top: 8px solid var(--asparagus);
+    color: white;
+    border-radius: 12px;
+}
+
+.button-red,
+.button-error {
+    font-size: 20px;
+    background-color: #e53e3e;
+    border-bottom: 8px solid #e53e3e;
+    border-left: 18px solid #e53e3e;
+    border-right: 18px solid #e53e3e;
+    border-top: 8px solid #e53e3e;
+    color: white;
+    border-radius: 12px;
+}

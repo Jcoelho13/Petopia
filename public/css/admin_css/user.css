@@ -1,0 +1,287 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    margin-bottom: 3em;
+    padding: 1em;
+    flex: 1;
+}
+
+.cool_button{
+    background-color: var(--asparagus);
+    color: white;
+    border-style: solid;
+    border-color: var(--asparagus);
+    border-width: 1px;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    font-weight: 600;
+    text-decoration: none;
+    margin: 1em;
+}
+
+.cool_button:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+}
+
+.not_cool_button{
+    background-color: var(--tomato);
+    color: white;
+    border-style: solid;
+    border-color: var(--tomato);
+    border-width: 1px;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: inherit;
+    margin: 0.5em 0em 0em 0em;
+}
+
+.not_cool_button:hover{
+    background-color: var(--sandy_brown);
+    border-color: var(--sandy_brown);
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+}
+
+.row img{
+	width: 300px;
+	height: 300px;
+	border-radius: 0.3em;
+	box-shadow: 0px 0px 0px 2px var(--asparagus),
+8px 8px 0px 0px var(--asparagus);
+}
+
+.line {
+	width: 1.5rem;
+	height: 0.2rem;
+	background-color: var(--white);
+	margin: 0.3rem;
+}
+
+/* Body top */
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+}
+
+.top h1{
+margin: 0em 0em 0em 0.5em;
+}
+
+/* Purchase history */
+.purchase_history h2{
+    margin: 1em 0em 0em 0em;
+}
+
+.purchase_menu{
+    cursor: pointer;
+}
+
+.user_purchases{
+    height: 40vh;
+	width: 98%;
+    border-radius: 0.3em;
+	box-shadow: 0px 0px 0px 2px var(--asparagus),
+8px 8px 0px 0px var(--asparagus);
+	margin-bottom: 1em;
+	overflow: scroll;
+	padding: 0.5em;
+}
+
+.purchase_data{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #313131;
+    color: var(--white);
+    padding: 0em 1em;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.purchase_menu{
+    display: block;
+}
+
+@keyframes duration {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.details{
+    background-color: #313131;
+    color: var(--white);
+    animation: duration 0.5s;
+    margin-top: 0em;
+    padding: 0.5em 1em;
+    border-radius: 0em 0em 0.5em 0.5em;
+}
+
+.details p:nth-child(1){
+    margin-top: 0em;
+}
+
+.purchase_details h3 {
+    margin: 0em 0em 0.5em 0em;
+}
+
+.purchase_details p:not(:last-child){
+    margin: 0em 0em 0em 0em;
+}
+
+.purchase_details p:last-child{
+    margin: 0em 0em 1em 0em;
+}
+
+.purchase_product img{
+    width: 90px;
+    height: 90px;
+}
+
+.purchase_product{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.purchase_product p{
+    margin: 0em 0.5em;
+}
+
+.purchase_products h3{
+    margin: 1em 0em 0em 0em;
+}
+
+.products{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 110px;
+    overflow: scroll;
+}
+
+#tracking_status{
+    border-color: var(--asparagus);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.3em;
+    background-color: var(--white);
+}
+
+/* User reviews */
+.reviews_section h2{
+    margin: 1em 0em 0em 0em;
+}
+
+.user_reviews{
+	height: 40vh;
+	width: 98%;
+    border-radius: 0.3em;
+	box-shadow: 0px 0px 0px 2px var(--asparagus),
+8px 8px 0px 0px var(--asparagus);
+	margin-bottom: 1em;
+	overflow: scroll;
+	padding: 0.5em;
+}
+
+.review_menu{
+    cursor: pointer;
+}
+
+.review_data{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #313131;
+    color: var(--white);
+    padding: 0em 1em;
+    border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+
+.review_details h3 {
+    margin: 0em 0em 0em 0em;
+}
+
+.review_details p:not(:last-child){
+    margin: 0em 0em 0em 0em;
+}
+
+.review_details p:last-child{
+    margin: 0em 0em 1em 0em;
+}
+
+.details form button {
+    margin: 0em 0em 1em 0em;
+}
+
+/* User settings */
+.user_data{
+	margin-left: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+}
+
+.user_data p{
+    margin: 0em 0em 0.1em 0em;
+}
+
+.user_data a{
+    margin: 1em 0em 0.1em 0em;
+}
+
+/* Responsive */
+@media screen and (max-width: 840px) {   
+    .cool_button{
+         text-align: center;
+     }
+ }
+
+ @media screen and (max-width: 570px) {   
+    .row{
+        flex-direction: column;
+        margin-bottom: 1em;
+    }
+
+    .user_data{
+        margin-left: 0em;
+    }
+
+    .text{
+        margin-top: 2em;
+    }
+ }

@@ -1,0 +1,53 @@
+/* General CSS */
+:root {
+	--moss_green: #8b9474;
+	--asparagus: #6cae75;
+	--olivine: #8bbd8b;
+	--sage: #c1cc99;
+	--sandy_brown: #f5a65b;
+	--white: #fff;
+	--tomato: #ff6666;
+}
+
+body {
+	margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    margin-bottom: 3em;
+    padding: 1em;
+    flex: 1;
+}
+
+.question{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.5em;
+	padding: 0em 1em;
+	background-color: var(--asparagus);
+	border-radius: 0.5em;
+	color: var(--white);
+	font-size: 20px;
+}
+
+.line{
+	color:var(--white)
+}
+
+.menu{
+	cursor: pointer;
+}
+
+.answer{
+	padding: 0.1em 1em;
+	background-color: var(--sandy_brown);
+	border-radius: 0.5em;
+	color: var(--white);
+	font-size: 20px;
+	margin-bottom: 1em;
+}
